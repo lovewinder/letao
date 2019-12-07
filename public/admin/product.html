@@ -157,11 +157,6 @@
       margin-bottom:0px;
     }
 
-    .chart01,.chart02{
-      width: 45%;
-      height: 500px;
-    }
-
   </style>
 
 </head>
@@ -175,7 +170,7 @@
     </div>
     <div class="doClass">
       <ul class="outUl">
-        <li><i class="glyphicon glyphicon-user"></i><a href="./user.html"> 用户管理</a></li>
+        <li ><i class="glyphicon glyphicon-user"></i><a href="./user.html"> 用户管理</a></li>
         <li class="notActive"><i class="glyphicon glyphicon-list"></i><a href="javascript:;"> 分类管理</a>
 
         </li>
@@ -183,7 +178,7 @@
           <li class="sg"><a href="./first.html"> 一级分类</a></li>
           <li class="sg"><a href="./second.html"> 二级分类</a></li>
         </ul>
-        <li><i class="glyphicon glyphicon-tags"></i><a href="./product.html"> 商品管理</a></li>
+        <li class="active"><i class="glyphicon glyphicon-tags"></i><a href="./product.html"> 商品管理</a></li>
       </ul>
     </div>
   </div>
@@ -203,11 +198,6 @@
       <li><a href="./index.html">管理系统</a></li>
       <li class="active">首页</li>
     </ol>
-
-    <div class="pull-left chart01">
-    </div>
-    <div class="pull-right chart02">
-    </div>
   </div>
 
 
@@ -233,7 +223,6 @@
 
   <script src="./lib/jquery/jquery.min.js"></script>
   <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="./lib/echarts/echarts.min.js"></script>
   <script>
     $(".top .slide").on("click", function () {
       $(".aslid").toggleClass("slideLeft")
@@ -245,14 +234,7 @@
     })
 
     $(".quit-sure").on("click", function () {
-      $.ajax({
-        url: "/employee/employeeLogout",
-        type: "get",
-        success: function () {
-          location.href = "./login.html"
-        }
-      })
-
+      location.href = "./login.html"
     })
 
     $(".doClass li:not('.notActive')").on("click", function () {
@@ -263,72 +245,6 @@
     $(".outUl>li.notActive").on("click", function () {
       $(".sg").parent().slideToggle(1000)
     })
-
-    var myChart = echarts.init(document.querySelector('.chart01'))
-    var myChart2 = echarts.init(document.querySelector('.chart02'))
-
-    var option = {
-      title: {
-        text: "2017注册人数"
-      },
-      tooltip: {},
-      legend: {
-        data: ['人数']
-      },
-      xAxis: {
-        data: ["1月", "2月", "3月", "4月", "5月", "6月",]
-      },
-      yAxis: {},
-      series: [{
-        name: '人数',
-        type: 'bar',
-        data: [0, 300, 600, 900, 1200, 1500, 2800]
-      }]
-    };
-
-
-    option2 = {
-      title: {
-        text: '热门品牌销售',
-        subtext: '2017年6月',
-        x: 'center'
-      },
-      tooltip: {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
-      },
-      legend: {
-        orient: 'vertical',
-        left: 'left',
-        data: ['耐克', '阿迪', '新百伦', '阿迪王', '李宁']
-      },
-      series: [
-        {
-          name: '访问来源',
-          type: 'pie',
-          radius: '55%',
-          center: ['50%', '60%'],
-          data: [
-            { value: 335, name: '耐克' },
-            { value: 310, name: '阿迪' },
-            { value: 234, name: '新百伦' },
-            { value: 135, name: '阿迪王' },
-            { value: 1548, name: '李宁' }
-          ],
-          itemStyle: {
-            emphasis: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
-            }
-          }
-        }
-      ]
-    };
-
-
-    myChart.setOption(option);
-    myChart2.setOption(option2);
   </script>
 </body>
 
