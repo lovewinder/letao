@@ -22,10 +22,14 @@
 
     a {
       text-decoration: none;
+      color: white;
     }
 
     a:active,
-    a:visited {
+    a:visited,
+    a:hover,
+    a:link {
+      text-decoration: none;
       color: #fff;
     }
 
@@ -34,12 +38,18 @@
     }
 
     .aslid {
-      width: 20%;
+      width: 180px;
       height: 100%;
       position: fixed;
       left: 0;
       top: 0;
       background-color: #222D32;
+      z-index: 999;
+      transition: 1s;
+    }
+
+    .slideLeft {
+      left: -180px
     }
 
     .title {
@@ -49,6 +59,7 @@
       font-size: 26px;
       color: #fff;
       line-height: 50px;
+
     }
 
     .aslid .pic {
@@ -67,7 +78,8 @@
 
     .doClass {
       color: white;
-      padding-left: 40px;
+      padding-left: 0px;
+      text-align: center;
     }
 
     .doClass li {
@@ -83,7 +95,45 @@
       width: 100%;
       border-radius: 50%;
     }
+
+    .top {
+      height: 50px;
+      position: fixed;
+      background-color: #3C8DBC;
+      width: 100%;
+      padding-left: 190px;
+      padding-right: 15px;
+      box-sizing: border-box;
+    }
+
+    .top .quit {
+      float: right;
+      line-height: 50px;
+      font-size: 16px;
+    }
+
+    .top .slide {
+      float: left;
+      line-height: 50px;
+      transition: 1s;
+      font-size: 16px;
+
+    }
+
+    .misPaddingLeft {
+      transform: translateX(-180px)
+    }
+
+    .modal-body{
+      color:tomato
+    }
+
+    .modal-body i {
+      color:tomato
+      
+    }
   </style>
+
 </head>
 
 <body>
@@ -95,12 +145,61 @@
     </div>
     <div class="doClass">
       <ul>
-        <li><i class="glyphicon glyphicon-user"></i> 用户管理</li>
-        <li><i class="glyphicon glyphicon-list"></i> 分类管理</li>
-        <li><i class="glyphicon glyphicon-tags"></i> 商品管理</li>
+        <li><i class="glyphicon glyphicon-user"></i><a href="javascript:;"> 用户管理</a></li>
+        <li><i class="glyphicon glyphicon-list"></i><a href="javascript:;"> 分类管理</a></li>
+        <li><i class="glyphicon glyphicon-tags"></i><a href="javascript:;"> 商品管理</a></li>
       </ul>
     </div>
   </div>
+
+  <div class="top">
+    <div class="slide">
+      <a href="javascript:;">
+        <i class="glyphicon glyphicon-align-justify"></i>
+      </a>
+    </div>
+    <div class="quit">
+      <a href="javascript:;">
+        <i class="glyphicon glyphicon-off"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">温馨提示</h4>
+        </div>
+        <div class="modal-body">
+          <p><i class="
+            glyphicon glyphicon-info-sign"></i> 您确定要退出后台管理系统吗?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary quit-sure">退出</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <script src="./lib/jquery/jquery.min.js"></script>
+  <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+  <script>
+    $(".top .slide").on("click", function () {
+      $(".aslid").toggleClass("slideLeft")
+      $(".top .slide").toggleClass("misPaddingLeft")
+    })
+
+    $(".top .quit").on("click", function () {
+      $(".modal").modal("show")
+    })
+
+    $(".quit-sure").on("click", function () {
+      location.href = "./login.html"
+    })
+  </script>
 </body>
 
 </html>
