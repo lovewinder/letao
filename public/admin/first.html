@@ -1,141 +1,405 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>乐淘电商</title>
-  <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.css">
-  <link rel="stylesheet" href="./lib/bootstrap-validator/css/bootstrapValidator.css">
-  <link rel="stylesheet" href="./lib/nprogress/nprogress.css">
-  <link rel="stylesheet" href="./css/common.css">
-  <link rel="stylesheet" href="./css/first.css">
+  <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./lib/bootstrap-validator/css/bootstrapValidator.min.css">
+  <link rel="stylesheet" href="./lib/bootstrap-paginator/bootstrap-paginator.min.js">
+  <title>index</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+    }
+
+    i {
+      display: inline-block;
+      color: white;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
+
+    a:active,
+    a:visited,
+    a:hover,
+    a:link {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    body {
+      height: 2000px;
+    }
+
+    .aslid {
+      width: 180px;
+      height: 100%;
+      position: fixed;
+      left: 0;
+      top: 0;
+      background-color: #222D32;
+      z-index: 999;
+      transition: 1s;
+    }
+
+    .slideLeft {
+      left: -180px
+    }
+
+    .title {
+      height: 50px;
+      background-color: #367FA9;
+      text-align: center;
+      font-size: 26px;
+      color: #fff;
+      line-height: 50px;
+
+    }
+
+    .aslid .pic {
+      width: 100px;
+      height: 100px;
+      /* background-color: orange; */
+      margin: 30px auto 10px auto;
+      border-radius: 50%;
+    }
+
+    .aslid .name {
+      color: white;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .doClass {
+      color: white;
+      padding-left: 0px;
+      text-align: center;
+    }
+
+    .doClass li {
+      margin: 20px 0 0 0;
+    }
+
+    .hp {
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .hp img {
+      width: 100%;
+      border-radius: 50%;
+    }
+
+    .top {
+      height: 50px;
+      position: fixed;
+      background-color: #3C8DBC;
+      width: 100%;
+      padding-left: 190px;
+      padding-right: 15px;
+      box-sizing: border-box;
+    }
+
+    .top .quit {
+      float: right;
+      line-height: 50px;
+      font-size: 16px;
+    }
+
+    .top .slide {
+      float: left;
+      line-height: 50px;
+      transition: 1s;
+      font-size: 16px;
+
+    }
+
+    .misPaddingLeft {
+      transform: translateX(-180px)
+    }
+
+    .modal-body{
+      color:tomato
+    }
+
+    .modal-body i {
+      color:tomato
+      
+    }
+
+    .breadcrumb{
+      margin-top: 70px;
+    }
+
+    .breadcrumb li a{
+      color:skyblue
+    }
+
+    .breadcrumb li.active{
+      color: #ccc
+    }
+
+    .doClass li{
+      border-left: 3px solid transparent;
+    }
+    .doClass li.active{
+      border-left: 3px solid skyblue;
+    }
+
+   .outUl .sg{
+      margin-top:10px;
+      margin-bottom:0px;
+    }
+
+    .chart01,.chart02{
+      width: 45%;
+      height: 500px;
+    }
+
+    .addfirst{
+      margin-bottom: 15px;
+    }
+
+    #page{
+      float: right;
+    }
+
+  </style>
+
 </head>
+
 <body>
-      <div class="aside">
-        <div class="aside-top">黑马56期</div>
-        <div class="aside-bot">
-          <div class="icon"><img src="./images/default.png" alt=""></div>
-          <a class="font" href="index.html">超级管理员</a>
-          <ul class="list">
-            <li>
-              <a href="user.html">
-                <span class="glyphicon glyphicon-user"></span>
-                <span>用户管理</span>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:;"  class="hidee">
-                <span class="glyphicon glyphicon-th-list"></span>
-                <span>分类管理</span>
-              </a> 
-              <div class="second-hidden">
-                <a href="first.html">一级分类</a>
-                <a href="second.html">二级分类</a>
-              </div>           
-            </li>
-            <li>
-              <a href="product.html">
-                <span class="glyphicon glyphicon-tags"></span>
-                <span>商品管理</span>
-              </a>
-            </li>
-          </ul>
+  <div class="aslid">
+    <div class="title"><a href="./index.html">黑马56期</a></div>
+    <div class="hp">
+      <div class="pic"><img src="./imgaes/default.png" alt="">></i></div>
+      <div class="name">超级管理员</div>
+    </div>
+    <div class="doClass">
+      <ul class="outUl">
+        <li><i class="glyphicon glyphicon-user"></i><a href="./user.html"> 用户管理</a></li>
+        <li class="notActive"><i class="glyphicon glyphicon-list"></i><a href="javascript:;"> 分类管理</a>
+
+        </li>
+        <ul style="display:block">
+          <li class="sg active"><a href="./first.html"> 一级分类</a></li>
+          <li class="sg"><a href="./second.html"> 二级分类</a></li>
+        </ul>
+        <li><i class="glyphicon glyphicon-tags"></i><a href="./product.html"> 商品管理</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="top">
+    <div class="slide">
+      <a href="javascript:;">
+        <i class="glyphicon glyphicon-align-justify"></i>
+      </a>
+    </div>
+    <div class="quit">
+      <a href="javascript:;">
+        <i class="glyphicon glyphicon-off"></i>
+      </a>
+    </div>
+    <ol class="breadcrumb">
+      <li><a href="./index.html">管理系统</a></li>
+      <li><a href="./index.html">分类管理</a></li>
+      <li class="active">一级分类</li>
+    </ol>
+
+    <button class="btn btn-default addfirst">添加分类</button>
+
+    <table class="table table-bordered table-striped ">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>一级分类</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+
+    <ul id="page"></ul>
+  </div>
+
+  <div class="modal fade insert" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">添加分类</h4>
         </div>
-      </div>
-      <div class="content">
-        <div class="content-top">
-          <a href="javascript:;" class="glyphicon glyphicon-align-justify pull-left"></a>
-          <a href="javascript:;" class="glyphicon glyphicon-share pull-right"></a>
+        <div class="modal-body form-group">
+          <form id="formm" class="bv-form">
+            <input type="text" placeholder="请输入一级分类" class="form-control" name="first">
+          </form>
         </div>
-        <div class="content-bot">
-          <ol class="breadcrumb">
-            <li><a href="index.html">管理系统</a></li>
-            <li class="active">用户管理</li>
-          </ol>
-
-          <!-- 添加分类 -->
-         <button type="button" class="btn btn-default btn-ldd">添加分类</button>
-
-         <!--添加表格 -->
-         <table class="table table-bordered table-striped tad">
-           <thead>
-             <tr>
-               <th>序号</th>
-               <th>一级分类名</th>
-             </tr>
-           </thead>
-           <tbody>
-            <!-- 挖个坑 -->
-           </tbody>
-         </table>
-       <!-- 添加分页 -->
-         <ul id="page" ></ul>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary insert-sure" form="formm">添加</button>
         </div>
-      </div>
-      <div class="modal fade logoutModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">温馨提示</h4>
-            </div>
-            <!-- <form> -->
-            <div class="modal-body">
-              <p class="text-danger"><span class="glyphicon glyphicon-info-sign"></span>你确定要退出本系统吗?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-              <button type="button" class="btn btn-primary btn-sure">确定</button>
-            </div>
-          <!-- </form> -->
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
-    <!-- 添加的模态框 -->
-    <div class="modal fade addModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm" role="document">
-          <!-- <form > -->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">添加分类</h4>
-            </div>
-          <form id="form">
-            <div class="modal-body">
-              <div class="form-group">
-              <input type="text" class="form-control inadd"  name="categoryName" placeholder="请输入一级分类">
-             </div>
-            </div>
-          </form> 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-              <button type="submit" class="btn btn-primary btn-add">添加</button>
-            </div>
-          </div>
-        <!-- </form> -->
+
+  <div class="modal fade quit" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">温馨提示</h4>
         </div>
-      </div>
+        <div class="modal-body">
+          <p><i class="
+            glyphicon glyphicon-info-sign"></i> 您确定要退出后台管理系统吗?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary quit-sure">退出</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
-    <script src="./lib/jquery/jquery.min.js"></script>
+  <script src="./lib/jquery/jquery.min.js"></script>
+  <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="./lib/artTemplate/template-web.js"></script>
+  <script src="./lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
+  <script src="./lib/bootstrap-paginator/bootstrap-paginator.min.js"></script>
 
-    <script src="./lib/bootstrap/js/bootstrap.js"></script>
-    <script src="./lib/bootstrap-validator/js/bootstrapValidator.js"></script>
-    <script src="./lib/nprogress/nprogress.js"></script>
-    <script src="./lib/template-web.js"></script>
-    <script src="./lib/bootstrap-paginator/bootstrap-paginator.js"></script>   
-    <script src="./js/common.js"></script>
-    <script src="./js/login.js"></script>
-    <script src="./js/first.js"></script>
+  <script type="text/html" id="tpl">
+    {{each rows v i}}
+    <tr>
+      <td>{{i+1}}</td>
+      <td>{{v.categoryName}}</td>
+    </tr>
+    {{/each}}
+  </script>
 
-    <script type="text/html" id="tpl">
-      {{each rows v i}}
-       <tr>
-         <td>{{(page - 1) * size +i+1}}</td>
-         <td>{{v.categoryName}}</td>
-       </tr>
-       {{/each}}
-    </script>
+  <script>
+    $(function () {
+      $(".top .slide").on("click", function () {
+        $(".aslid").toggleClass("slideLeft")
+        $(".top .slide").toggleClass("misPaddingLeft")
+      })
+
+      $(".top .quit").on("click", function () {
+        $(".quit").modal("show")
+      })
+
+      $(".quit-sure").on("click", function () {
+        $.ajax({
+          url: "/employee/employeeLogout",
+          type: "get",
+          success: function () {
+            location.href = "./login.html"
+          }
+        })
+
+      })
+
+      $(".doClass li:not('.notActive')").on("click", function () {
+        $(this).addClass("active")
+        $(this).siblings().removeClass("active")
+      })
+
+      $(".outUl>li.notActive").on("click", function () {
+        $(".sg").parent().slideToggle(1000)
+      })
+
+      var page = 1;
+
+      var render = function () {
+        $.ajax({
+          url: "/category/queryTopCategoryPaging",
+          dataType: "json",
+          data: {
+            page: page,
+            pageSize: 5
+          },
+          type: "get",
+          success: function (info) {
+            console.log(info);
+            $("tbody").html(template("tpl", info))
+            $('#page').bootstrapPaginator({
+              // 指定bootstrap的版本，如果是3版本必须指定
+              bootstrapMajorVersion: 3,
+              // 当前页
+              currentPage: page,
+              // 总页数
+              totalPages: Math.ceil(info.total / info.size),
+              onPageClicked: function (a, b, c, d) {
+                page = arguments[3]
+                console.log(page);
+                render()
+              }
+            })
+          }
+        })
+      }
+
+      render()
+
+      $(".addfirst").on("click", function () {
+        $(".insert").modal("show")
+      })
+
+      var form = $("#formm");
+      form.bootstrapValidator({
+        feedbackIcons: {
+          valid: 'glyphicon glyphicon-ok',
+          invalid: 'glyphicon glyphicon-remove',
+          validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+          first: {
+            validators: {
+              notEmpty: {
+                message: "请输入一级分类名称"
+              }
+            }
+          },
+        }
+      })
+
+      var validator = $("form").data('bootstrapValidator')
+
+
+      $("#formm").on("success.form.bv", function (e) {
+        e.preventDefault()
+        $.ajax({
+          url: "/category/addTopCategory",
+          data: {
+            categoryName: $("[name=first]").val()
+          },
+          dataType: "json",
+          type: "post",
+          success: function (info) {
+            console.log(info);
+            if (info.success) {
+              $(".insert").modal("hide")
+              validator.resetForm(true)
+            }
+          },
+          complete: function () {
+            render()
+          }
+        })
+      })
+
+    })
+  </script>
 </body>
+
 </html>

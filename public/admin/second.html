@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./lib/bootstrap-validator/css/bootstrapValidator.min.css">
   <title>index</title>
   <style>
     * {
@@ -125,11 +126,11 @@
     }
 
     .modal-body{
-      color:tomato
+      /* color:tomato */
     }
 
     .modal-body i {
-      color:tomato
+      /* color:tomato */
       
     }
 
@@ -155,6 +156,19 @@
    .outUl .sg{
       margin-top:10px;
       margin-bottom:0px;
+    }
+
+    .chart01,.chart02{
+      width: 45%;
+      height: 500px;
+    }
+
+    .addfirst{
+      margin-bottom: 15px;
+    }
+
+    #page{
+      float: right;
     }
 
   </style>
@@ -196,13 +210,74 @@
     </div>
     <ol class="breadcrumb">
       <li><a href="./index.html">管理系统</a></li>
-      <li class="active">首页</li>
+      <li><a href="./index.html">分类管理</a></li>
+      <li class="active">二级分类</li>
     </ol>
+
+    <button class="btn btn-default addfirst">添加分类</button>
+
+    <table class="table table-bordered table-striped ">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>一级分类名称</th>
+          <th>二级分类名称</th>
+          <th>二级分类LOGO</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+
+    <ul id="page"></ul>
   </div>
 
+  <div class="modal fade insert" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">添加分类</h4>
+        </div>
+        <form id="formm" class="bv-form">
+          <div class="modal-body form-group">
+
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                <span id="dropdownText">请选择一级分类</span>
+                <input type="hidden" name="categoryId">
+                <span class="caret"></span>
+
+              </button>
+              <ul class="dropdown-menu" style="z-index:999">
+
+              </ul>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="请输入二级分类" class="form-control" name="brandName">
+          </div>
+
+          <label for="file" class="btn btn-default">上传图片</label>
+          <input type="file" multipel id="file" name="pic1" data-url="/category/addSecondCategoryPic" class="hidden" />
+
+          <div class="form-group">
+            <img src="./imgaes/none.png" width="120" alt="" style="display:block" class="addimg">
+            <input type="hidden" name="brandLogo">
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary insert-sure" form="formm">添加</button>
+          </div>
+        </form>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
 
-  <div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal fade quit" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -223,27 +298,210 @@
 
   <script src="./lib/jquery/jquery.min.js"></script>
   <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="./lib/artTemplate/template-web.js"></script>
+  <script src="./lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
+  <script src="./lib/bootstrap-paginator/bootstrap-paginator.min.js"></script>
+  <script src="./lib/jquery-fileupload/jquery.ui.widget.js"></script>
+  <script src="./lib/jquery-fileupload/jquery.fileupload.js"></script>
+
+  <script type="text/html" id="tpl">
+    {{each rows v i}}
+    <tr>
+      <td>{{i+1}}</td>
+      <td>{{v.brandName}}</td>
+      <td>{{v.categoryName}}</td>
+      <td><img src="{{v.brandLogo}}" height="50"></td>
+    </tr>
+    {{/each}}
+  </script>
+
+  <script type="text/html" id="addSecond">
+    {{each rows v i}}
+      <li><a data-cid="{{v.id}}" href="javascript:;">{{v.categoryName}}</a></li>
+    {{/each}}
+  </script>
+
   <script>
-    $(".top .slide").on("click", function () {
-      $(".aslid").toggleClass("slideLeft")
-      $(".top .slide").toggleClass("misPaddingLeft")
-    })
+    $(function () {
+      $(".top .slide").on("click", function () {
+        $(".aslid").toggleClass("slideLeft")
+        $(".top .slide").toggleClass("misPaddingLeft")
+      })
 
-    $(".top .quit").on("click", function () {
-      $(".modal").modal("show")
-    })
+      $(".top .quit").on("click", function () {
+        $(".quit").modal("show")
+      })
 
-    $(".quit-sure").on("click", function () {
-      location.href = "./login.html"
-    })
+      $(".quit-sure").on("click", function () {
+        $.ajax({
+          url: "/employee/employeeLogout",
+          type: "get",
+          success: function () {
+            location.href = "./login.html"
+          }
+        })
 
-    $(".doClass li:not('.notActive')").on("click", function () {
-      $(this).addClass("active")
-      $(this).siblings().removeClass("active")
-    })
+      })
 
-    $(".outUl>li.notActive").on("click", function () {
-      $(".sg").parent().slideToggle(1000)
+      $(".doClass li:not('.notActive')").on("click", function () {
+        $(this).addClass("active")
+        $(this).siblings().removeClass("active")
+      })
+
+      $(".outUl>li.notActive").on("click", function () {
+        $(".sg").parent().slideToggle(1000)
+      })
+
+      var page = 1;
+
+      var render = function () {
+        $.ajax({
+          url: "/category/querySecondCategoryPaging",
+          dataType: "json",
+          data: {
+            page: page,
+            pageSize: 5
+          },
+          type: "get",
+          success: function (info) {
+            $("tbody").html(template("tpl", info))
+            $('#page').bootstrapPaginator({
+              // 指定bootstrap的版本，如果是3版本必须指定
+              bootstrapMajorVersion: 3,
+              // 当前页
+              currentPage: page,
+              // 总页数
+              totalPages: Math.ceil(info.total / info.size),
+              onPageClicked: function (a, b, c, d) {
+                page = arguments[3]
+                console.log(page);
+                render()
+              }
+            })
+          }
+        })
+      }
+
+      render()
+
+      $(".addfirst").on("click", function () {
+        $(".insert").modal("show")
+      })
+
+      var form = $("#formm");
+      form.bootstrapValidator({
+        excluded: [],
+        feedbackIcons: {
+          valid: 'glyphicon glyphicon-ok',
+          invalid: 'glyphicon glyphicon-remove',
+          validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+          brandName: {
+            validators: {
+              notEmpty: {
+                message: "请输入二级分类名称"
+              }
+            }
+          },
+          categoryId: {
+            validators: {
+              notEmpty: {
+                message: "请输入一级分类名称"
+              }
+            }
+          },
+          brandLogo: {
+            validators: {
+              notEmpty: {
+                message: "请输入图片"
+              }
+            }
+          },
+        }
+      })
+
+      var validator = $("form").data('bootstrapValidator')
+
+
+      // $("#formm").on("success.form.bv", function (e) {
+      //   e.preventDefault()
+      //   $.ajax({
+      //     url: "/category/addTopCategory",
+      //     data: {
+      //       categoryName: $("[name=first]").val()
+      //     },
+      //     dataType: "json",
+      //     type: "post",
+      //     success: function (info) {
+      //       console.log(info);
+      //       if (info.success) {
+      //         $(".insert").modal("hide")
+      //         validator.resetForm(true)
+      //       }
+      //     },
+      //     complete: function () {
+      //       render()
+      //     }
+      //   })
+      // })
+
+      $(".dropdown").on("click", function () {
+        $.ajax({
+          url: "/category/queryTopCategoryPaging",
+          data: {
+            page: 1,
+            pageSize: 1000
+          },
+          type: "get",
+          success: function (info) {
+            console.log(info);
+            $(".dropdown-menu").html(template("addSecond", info))
+          }
+        })
+      })
+
+      $(".dropdown-menu").on("click", "a", function () {
+        console.log($(this).text());
+        $(".dropdown #dropdownText").text($(this).text())
+        console.log($(this).data("cid"));
+        $("[name=categoryId]").val($(this).data("cid"))
+        $('#formm').data('bootstrapValidator').updateStatus('categoryId', 'VALID')
+      })
+
+      $('#file').fileupload({
+        // 当图片上传完成，就会执行done
+        done: function (e, data) {
+          // 通过data.result获取到服务器返回的数据
+          console.log(data.result.picAddr)
+          $(".addimg").attr("src", data.result.picAddr)
+          $("[name=brandLogo]").val(data.result.picAddr)
+          console.log($("[name=brandLogo]")[0]);
+          $('#formm').data('bootstrapValidator').updateStatus('brandLogo', 'VALID')
+        }
+      })
+
+
+      $("#formm").on("success.form.bv", function (e) {
+        e.preventDefault();
+        $.ajax({
+          data: $("#formm").serialize(),
+          type: "post",
+          dataType: "json",
+          url: "/category/addSecondCategory",
+          success: function (info) {
+            validator.resetForm(true)
+            $(".insert").modal("hide")
+            console.log(info);
+            $("#dropdownText").text("请选择一级分类")
+            $("[name=brandLogo]").val("")
+            $(".addimg").attr("src", "./imgaes/none.png")
+            render()
+          }
+        })
+      })
+
+
     })
   </script>
 </body>
