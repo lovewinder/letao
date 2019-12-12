@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./lib/bootstrap-validator/css/bootstrapValidator.min.css">
   <title>index</title>
   <style>
     * {
@@ -34,7 +35,7 @@
     }
 
     body {
-      height: 2000px;
+      
     }
 
     .aslid {
@@ -125,11 +126,11 @@
     }
 
     .modal-body{
-      color:tomato
+      /* color:tomato */
     }
 
     .modal-body i {
-      color:tomato
+      /* color:tomato */
       
     }
 
@@ -157,6 +158,23 @@
       margin-bottom:0px;
     }
 
+    .chart01,.chart02{
+      width: 45%;
+      height: 500px;
+    }
+
+    .addfirst{
+      margin-bottom: 15px;
+    }
+
+    #page{
+      float: right;
+    }
+
+    .modal-content{
+      padding: 15px;
+    }
+
   </style>
 
 </head>
@@ -170,7 +188,7 @@
     </div>
     <div class="doClass">
       <ul class="outUl">
-        <li ><i class="glyphicon glyphicon-user"></i><a href="./user.html"> 用户管理</a></li>
+        <li><i class="glyphicon glyphicon-user"></i><a href="./user.html"> 用户管理</a></li>
         <li class="notActive"><i class="glyphicon glyphicon-list"></i><a href="javascript:;"> 分类管理</a>
 
         </li>
@@ -196,13 +214,92 @@
     </div>
     <ol class="breadcrumb">
       <li><a href="./index.html">管理系统</a></li>
-      <li class="active">首页</li>
+      <li class="active">商品管理</li>
     </ol>
+
+    <button class="btn btn-default addfirst">添加分类</button>
+
+    <table class="table table-bordered table-striped ">
+      <thead>
+        <tr>
+          <th width="10%">序号</th>
+          <th width="25%">商品名称</th>
+          <th width="25%">商品描述</th>
+          <th width="10%">商品库存</th>
+          <th width="10%">商品尺寸</th>
+          <th width="10%">商品状态</th>
+          <th width="10%">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+
+    <ul id="page"></ul>
   </div>
 
+  <div class="modal fade insert" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">添加商品</h4>
+        </div>
+        <form id="formm" class="bv-form">
+          <div class="modal-body form-group">
+
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                <span id="dropdownText">请选择二级分类</span>
+                <input type="hidden" name="brandId">
+                <span class="caret"></span>
+
+              </button>
+              <ul class="dropdown-menu" style="z-index:999">
+
+              </ul>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="请输入商品名称" class="form-control" name="proName">
+          </div>
+          <div class="form-group">
+            <textarea placeholder="请输入商品描述" class="form-control" name="proDesc"></textarea>
+          </div>
+
+          <div class="form-group">
+            <input type="text" placeholder="请输入商品库存" class="form-control" name="num">
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="请输入商品尺码" class="form-control" name="size">
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="请输入商品原价" class="form-control" name="oldPrice">
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="请输入商品现价" class="form-control" name="price">
+          </div>
+
+          <label for="file" class="btn btn-default">上传图片</label>
+          <input type="file" multiple id="file" name="pic1" data-url="/category/addSecondCategoryPic" class="hidden" />
+
+          <div class="form-group showPics">
+            <img src="./imgaes/none.png" width="120" alt="" style="display:block" class="noneImg">
+            <input type="hidden" name="picArr">
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary insert-sure" form="formm">添加</button>
+          </div>
+        </form>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
 
-  <div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal fade quit" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -223,27 +320,269 @@
 
   <script src="./lib/jquery/jquery.min.js"></script>
   <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="./lib/artTemplate/template-web.js"></script>
+  <script src="./lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
+  <script src="./lib/bootstrap-paginator/bootstrap-paginator.min.js"></script>
+  <script src="./lib/jquery-fileupload/jquery.ui.widget.js"></script>
+  <script src="./lib/jquery-fileupload/jquery.fileupload.js"></script>
+
+  <script type="text/html" id="tpl">
+    {{each rows v i}}
+    <tr>
+      <td>{{i+1}}</td>
+      <td>{{v.proName}}</td>
+      <td>{{v.proDesc}}</td>
+      <td>{{v.num}}</td>
+      <td>{{v.size}}</td>
+      <td>{{v.statu}}</td>
+      <td><button class="btn btn-danger">下架</button></td>
+    </tr>
+    {{/each}}
+  </script>
+
+
+
+  <script type="text/html" id="addSecond">
+    {{each rows v i}}
+      <li><a data-cid="{{v.id}}" href="javascript:;">{{v.brandName}}</a></li>
+    {{/each}}
+  </script>
+
   <script>
-    $(".top .slide").on("click", function () {
-      $(".aslid").toggleClass("slideLeft")
-      $(".top .slide").toggleClass("misPaddingLeft")
-    })
+    $(function () {
 
-    $(".top .quit").on("click", function () {
-      $(".modal").modal("show")
-    })
+      var pics = []
 
-    $(".quit-sure").on("click", function () {
-      location.href = "./login.html"
-    })
+      $(".top .slide").on("click", function () {
+        $(".aslid").toggleClass("slideLeft")
+        $(".top .slide").toggleClass("misPaddingLeft")
+      })
 
-    $(".doClass li:not('.notActive')").on("click", function () {
-      $(this).addClass("active")
-      $(this).siblings().removeClass("active")
-    })
+      $(".top .quit").on("click", function () {
+        $(".quit").modal("show")
+      })
 
-    $(".outUl>li.notActive").on("click", function () {
-      $(".sg").parent().slideToggle(1000)
+      $(".quit-sure").on("click", function () {
+        $.ajax({
+          url: "/employee/employeeLogout",
+          type: "get",
+          success: function () {
+            location.href = "./login.html"
+          }
+        })
+
+      })
+
+      $(".doClass li:not('.notActive')").on("click", function () {
+        $(this).addClass("active")
+        $(this).siblings().removeClass("active")
+      })
+
+      $(".outUl>li.notActive").on("click", function () {
+        $(".sg").parent().slideToggle(1000)
+      })
+
+      var page = 1;
+
+      var render = function () {
+        $.ajax({
+          url: "/product/queryProductDetailList",
+          dataType: "json",
+          data: {
+            page: page,
+            pageSize: 5
+          },
+          type: "get",
+          success: function (info) {
+            console.log(info);
+            $("tbody").html(template("tpl", info))
+            $('#page').bootstrapPaginator({
+              // 指定bootstrap的版本，如果是3版本必须指定
+              bootstrapMajorVersion: 3,
+              // 当前页
+              currentPage: page,
+              // 总页数
+              totalPages: Math.ceil(info.total / info.size),
+              onPageClicked: function (a, b, c, d) {
+                page = arguments[3]
+                console.log(page);
+                render()
+              }
+            })
+          }
+        })
+      }
+
+      render()
+
+      $(".addfirst").on("click", function () {
+        $(".insert").modal("show")
+      })
+
+      var form = $("#formm");
+      form.bootstrapValidator({
+        excluded: [],
+        feedbackIcons: {
+          valid: 'glyphicon glyphicon-ok',
+          invalid: 'glyphicon glyphicon-remove',
+          validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+          brandName: {
+            validators: {
+              notEmpty: {
+                message: "请输入二级分类名称"
+              }
+            }
+          },
+          brandId: {
+            validators: {
+              notEmpty: {
+                message: "请输入二级分类名称"
+              }
+            }
+          },
+          picArr: {
+            validators: {
+              notEmpty: {
+                message: "请输入三张图片"
+              }
+            }
+          },
+          proName: {
+            validators: {
+              notEmpty: {
+                message: "请输入产品名称"
+              }
+            }
+          },
+          oldPrice: {
+            validators: {
+              notEmpty: {
+                message: "请输入原价"
+              }
+            }
+          },
+          price: {
+            validators: {
+              notEmpty: {
+                message: "请输入现价"
+              }
+            }
+          },
+          proDesc: {
+            validators: {
+              notEmpty: {
+                message: "请输入产品描述"
+              }
+            }
+          },
+          size: {
+            validators: {
+              notEmpty: {
+                message: "请输入尺寸"
+              },
+              regexp: {
+                regexp: /^\d{2}-\d{2}$/,
+                message: "尺寸格式错误,输入格式为33-44"
+              }
+            }
+          },
+          num: {
+            validators: {
+              notEmpty: {
+                message: "请输入产品库存"
+              },
+              regexp: {
+                regexp: /^[1-9]\d*$/,
+                message: "库存为非0开头的数字"
+              }
+            }
+          },
+          brandId: {
+            validators: {
+              notEmpty: {
+                message: "请输入产品所属品牌"
+              }
+            }
+          },
+        }
+      })
+
+      var validator = $("form").data('bootstrapValidator')
+
+
+
+      $(".dropdown").on("click", function () {
+        $.ajax({
+          url: "/category/querySecondCategoryPaging",
+          data: {
+            page: 1,
+            pageSize: 1000
+          },
+          type: "get",
+          success: function (info) {
+            console.log(info);
+            $(".dropdown-menu").html(template("addSecond", info))
+          }
+        })
+      })
+
+      $(".dropdown-menu").on("click", "a", function () {
+        console.log($(this).text());
+        $(".dropdown #dropdownText").text($(this).text())
+        console.log($(this).data("cid"));
+        $("[name=brandId]").val($(this).data("cid"))
+        $('#formm').data('bootstrapValidator').updateStatus('brandId', 'VALID')
+      })
+
+      $('#file').fileupload({
+        // 当图片上传完成，就会执行done
+        done: function (e, data) {
+          // 通过data.result获取到服务器返回的数据
+          $(".noneImg").hide()
+          $(".showPics").prepend($("<img src='" + data.result.picAddr + "' width='100'>"))
+
+          var picObj = data.result
+          console.log(pics);
+          if (pics.length >= 3) {
+            pics.pop()
+            console.log($(".showPics img:last")[0]);
+            $(".showPics img:eq(3)").remove() // 之前用:last,会把隐藏的none删掉
+          }
+          pics.unshift(picObj)
+
+          $("[name=picArr]").val(JSON.stringify(pics))
+          console.log(pics.length);
+          if (pics.length >= 3) {
+            $('#formm').data('bootstrapValidator').updateStatus('picArr', 'VALID')
+          } else {
+            $('#formm').data('bootstrapValidator').updateStatus('picArr', 'INVALID')
+          }
+        }
+      })
+
+
+      $("#formm").on("success.form.bv", function (e) {
+        e.preventDefault();
+        $.ajax({
+          data: $("#formm").serialize(),
+          type: "post",
+          dataType: "json",
+          url: "/product/addProduct",
+          success: function (info) {
+            validator.resetForm(true)
+            $(".insert").modal("hide")
+            console.log(info);
+            $("#dropdownText").text("请选择一级分类")
+            $("[name=picArr]").val("")
+            $(".addimg").attr("src", "./imgaes/none.png")
+            render()
+          }
+        })
+      })
+
+
     })
   </script>
 </body>
